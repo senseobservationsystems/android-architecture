@@ -29,5 +29,5 @@ before_script:
   - cd todoapp/
   - ./gradlew clean
 script:
-  - ./gradlew cAT
+  - ./gradlew cAT --stacktrace
   - cat /home/travis/build/senseobservationsystems/android-architecture/todoapp/app/build/reports/androidTests/connected/flavors/MOCK/index.html
