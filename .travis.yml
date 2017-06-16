@@ -30,3 +30,5 @@ before_script:
   - ./gradlew clean
 script:
   - ./gradlew cAT
+after_failed:
+  - cat /home/travis/build/senseobservationsystems/android-architecture/todoapp/app/build/reports/androidTests/connected/flavors/MOCK/index.html
