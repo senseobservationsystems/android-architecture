@@ -1,33 +1,39 @@
 language: android
 jdk:
-  - oraclejdk8
+- oraclejdk8
 branches:
   only:
-  - test/travis
+  - /^test-report$
 android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-25.0.2
-    - build-tools-25.0.0
-    - android-25
-    - android-19
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-19
+  - tools
+  - platform-tools
+  - build-tools-25.0.2
+  - build-tools-25.0.0
+  - android-25
+  - android-19
+  - extra-android-m2repository
+  - sys-img-armeabi-v7a-android-19
 cache:
   directories:
-    - $HOME/.m2
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.m2"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 before_install:
-  - echo no | android create avd -f -n emulator -t android-19 --abi armeabi-v7a
-  - emulator -avd emulator -no-audio -no-window -wipe-data -no-skin &
-  - android-wait-for-emulator
-before_script:
-  - cd todoapp/
-  - ./gradlew clean
+- echo no | android create avd -f -n emulator -t android-19 --abi armeabi-v7a
+- emulator -avd emulator -no-audio -no-window -wipe-data -no-skin &
+- cd todoapp/ && ./gradlew clean
+- android-wait-for-emulator
 script:
-  - ./gradlew cAT --stacktrace
-  - cat /home/travis/build/senseobservationsystems/android-architecture/todoapp/app/build/reports/androidTests/connected/flavors/MOCK/index.html
+- "./gradlew cAT --stacktrace"
+- zip -r -j report.zip app/build/reports/*
+deploy:
+  provider: releases
+  api_key:
+    secure: '$GITHUB_API_KEY'
+  file: report.zip
+  skip_cleanup: true
+  on:
+    tags: true
