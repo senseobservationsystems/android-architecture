@@ -3,7 +3,7 @@ jdk:
 - oraclejdk8
 branches:
   only:
-  - /^test-report$
+  - /^test-report$/
 android:
   components:
   - tools
