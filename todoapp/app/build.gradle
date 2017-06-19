@@ -36,9 +36,6 @@ android {
         mock {
             applicationIdSuffix = ".mock"
         }
-        prod {
-
-        }
     }
 
     // Remove mockRelease as it's not needed.
