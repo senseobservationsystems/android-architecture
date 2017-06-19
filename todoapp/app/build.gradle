@@ -57,6 +57,12 @@ android {
     }
 }
 
+project.gradle.taskGraph.whenReady {
+   connectedAndroidTest {
+      ignoreFailures = true
+   }
+}
+
 /*
  Dependency versions are defined in the top level build.gradle file. This helps keeping track of
  all versions in a single place. This improves readability and helps managing project complexity.
