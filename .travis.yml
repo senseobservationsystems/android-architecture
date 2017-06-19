@@ -27,7 +27,7 @@ before_install:
 - cd todoapp/ && ./gradlew clean
 - android-wait-for-emulator
 script:
-- "./gradlew cAT -Dtest.ignoreFailures=true"
+- "./gradlew cAT --continue"
 - zip -r -j report.zip app/build/reports/*
 - mv report.zip ../
 deploy:

@@ -58,7 +58,7 @@ android {
 }
 
 project.gradle.taskGraph.whenReady {
-   connectedAndroidTest {
+   connectedMockDebugAndroidTest {
       ignoreFailures = true
    }
 }
