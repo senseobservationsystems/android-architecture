@@ -28,7 +28,7 @@ before_install:
 - android-wait-for-emulator
 script:
 - travis_wait 60 ./gradlew cAT --continue
-- zip -r -j report.zip app/build/reports/*
+- zip -r report.zip app/build/reports/*
 - mv report.zip ../
 deploy:
   provider: releases
