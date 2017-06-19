@@ -29,6 +29,7 @@ before_install:
 script:
 - "./gradlew cAT --stacktrace"
 - zip -r -j report.zip app/build/reports/*
+- mv report.zip ../
 deploy:
   provider: releases
   api_key:
