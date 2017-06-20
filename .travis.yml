@@ -31,4 +31,5 @@ script:
 - travis_wait 60 ./gradlew cAT --continue
 - zip -r report.zip app/build/reports/*
 - mv report.zip ../
+- cd ../
 - ./upload.sh
