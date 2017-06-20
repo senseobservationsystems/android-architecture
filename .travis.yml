@@ -3,7 +3,7 @@ jdk:
 - oraclejdk8
 branches:
   only:
-  - /^test-report$/
+  - test/travis
 android:
   components:
   - tools
@@ -22,6 +22,7 @@ cache:
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 before_install:
+- chmod +x upload.sh
 - echo no | android create avd -f -n emulator -t android-19 --abi armeabi-v7a
 - emulator -avd emulator -no-audio -no-window -wipe-data -no-skin &
 - cd todoapp/ && ./gradlew clean
@@ -30,13 +31,4 @@ script:
 - travis_wait 60 ./gradlew cAT --continue
 - zip -r report.zip app/build/reports/*
 - mv report.zip ../
-deploy:
-  provider: releases
-  api_key:
-    secure: '$GITHUB_API_KEY'
-  file: report.zip
-  skip_cleanup: true
-  on:
-    tags: true
-    all_branches: true
-    
+- ./upload.sh
